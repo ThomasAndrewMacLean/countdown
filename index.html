@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Countdown ⏱</title>
+
+</head>
+
+<body>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20vw;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #1e731e;
+        }
+
+        span {
+            background-color: #ffffff;
+            padding: 5px 10px;
+            margin: 2px;
+        }
+
+        .space-after {
+            margin-right: 15px;
+        }
+    </style>
+
+    <div id="countDown"></div>
+
+    <script>
+        const element = document.getElementById("countDown")
+        let countDownInterval;
+
+        const setTime = (seconds) => {
+            const minutesAndSeconds = new Date(seconds * 1000).toISOString().substr(14, 5)
+            element.innerHTML =
+                `<span>${minutesAndSeconds[0]}</span><span class="space-after">${minutesAndSeconds[1]}</span><span>${minutesAndSeconds[3]}</span><span>${minutesAndSeconds[4]}</span>`
+
+        }
+
+        const start = () => {
+            document.body.style.backgroundColor = "#1e731e";
+            clearInterval(countDownInterval)
+            let numberOfSeconds = 120;
+            setTime(numberOfSeconds)
+
+            countDownInterval = setInterval(() => {
+                numberOfSeconds = numberOfSeconds - 1
+                setTime(numberOfSeconds)
+                if (numberOfSeconds === 10) {
+                    document.body.style.backgroundColor = "#9e3313";
+                }
+                if (numberOfSeconds === 0) {
+                    clearInterval(countDownInterval)
+                }
+            }, 1000)
+        }
+
+        start()
+
+        document.addEventListener("click", () => start())
+        document.addEventListener("keydown", () => start())
+    </script>
+</body>
+
+</html>
